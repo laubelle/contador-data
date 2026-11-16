@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <title>Contador</title>
+</head>
+<body data-pagina="index">
+  <h1>Meus contadores <img class="decoracao" src="imagem.png" alt=""></h1>
+
+  <form id="form-novo">
+    <input type="text" name="nome" placeholder="Nome do contador" required>
+    <input type="date" name="inicio" required>
+    <input type="color" name="cor" value="#f4a6b7">
+    <input type="text" name="emoji" placeholder="💖" maxlength="2">
+    <input type="file" name="icone" accept="image/*">
+    <button>Criar</button>
+    <img class="decoracao-form" src="imagem2.png" alt="">
+  </form>
+
+  <div id="lista"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
