@@ -8,7 +8,7 @@
   <title>Contador</title>
 </head>
 <body>
-  <h1>Meus contadores</h1>
+  <h1>Meus contadores <img class="decoracao" src="{{ url_for('static', filename='coelho.png') }}" alt=""></h1>
 
   <form action="/novo" method="post">
     <input type="text" name="nome" placeholder="Nome do contador" required>
@@ -16,6 +16,7 @@
     <input type="color" name="cor" value="#f4a6b7">
     <input type="text" name="emoji" placeholder="💖" maxlength="2">
     <button>Criar</button>
+    <img class="decoracao-form" src="{{ url_for('static', filename='coracao.png') }}" alt="">
   </form>
 
  {% for c in contadores %} 
