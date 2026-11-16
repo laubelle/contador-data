@@ -76,6 +76,21 @@ def novo():
     salvar(contadores)
     return redirect("/")
 
+@app.route("/editar/<id>", methods=["GET", "POST"])
+def editar(id):
+    contadores = carregar()
+    c = next((x for x in contadores if x["id"] == id), None)
+    if c is None:
+        return redirect("/")
+    if request.method == "POST":
+        c["nome"] = request.form["nome"]
+        c["inicio"] = request.form["inicio"]
+        c["cor"] = request.form.get("cor", c["cor"])
+        c["emoji"] = request.form.get("emoji", c["emoji"])
+        salvar(contadores)
+        return redirect("/")
+    return render_template("editar.html", c=c)
+
 @app.route("/excluir/<id>", methods=["POST"])
 def excluir(id):
     salvar([c for c in carregar() if c["id"] != id])
