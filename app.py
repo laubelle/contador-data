@@ -3,9 +3,23 @@ from datetime import date, datetime, timedelta
 from pathlib import Path
 from flask import Flask, render_template, request, redirect
 from dateutil.relativedelta import relativedelta
+import os
 app = Flask(__name__)
 ARQUIVO = Path("data.json")
+PASTA_UPLOADS = os.path.join(app.static_folder, "uploads")
+EXTENSOES = {"png", "jpg", "jpeg", "gif", "webp"}
+os.makedirs(PASTA_UPLOADS, exist_ok=True)
+app.config["MAX_CONTENT_LENGTH"] = 2 * 1024 * 1024  # limite de 2 MB
 
+def salvar_icone(arquivo):
+    if not arquivo or not arquivo.filename:
+        return None
+    ext = arquivo.filename.rsplit(".", 1)[-1].lower()
+    if ext not in EXTENSOES:
+        return None
+    nome = f"{uuid.uuid4().hex}.{ext}"
+    arquivo.save(os.path.join(PASTA_UPLOADS, nome))
+    return nome
 
 def gerar_marcos(inicio, limite_anos=20):
     marcos = {}  # dias -> data (dicionário evita repetir o mesmo marco)
@@ -66,12 +80,14 @@ def index():
 @app.route("/novo", methods=["POST"])
 def novo():
     contadores = carregar()
+    icone = salvar_icone(request.files.get("icone"))
     contadores.append({
         "id": uuid.uuid4().hex[:8],
         "nome": request.form["nome"],
         "inicio": request.form["inicio"],
         "cor": request.form.get("cor", "#d3968c"),
         "emoji": request.form.get("emoji", "💖"),
+        "icone": icone,
     })
     salvar(contadores)
     return redirect("/")
@@ -87,6 +103,9 @@ def editar(id):
         c["inicio"] = request.form["inicio"]
         c["cor"] = request.form.get("cor", c["cor"])
         c["emoji"] = request.form.get("emoji", c["emoji"])
+        novo_icone = salvar_icone(request.files.get("icone"))
+        if novo_icone:
+            c["icone"] = novo_icone
         salvar(contadores)
         return redirect("/")
     return render_template("editar.html", c=c)

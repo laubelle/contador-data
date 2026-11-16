@@ -10,18 +10,24 @@
 <body>
   <h1>Meus contadores <img class="decoracao" src="{{ url_for('static', filename='coelho.png') }}" alt=""></h1>
 
-  <form action="/novo" method="post">
+  <form action="/novo" method="post" enctype="multipart/form-data">
     <input type="text" name="nome" placeholder="Nome do contador" required>
     <input type="date" name="inicio" required>
     <input type="color" name="cor" value="#f4a6b7">
     <input type="text" name="emoji" placeholder="💖" maxlength="2">
+    <input type="file" name="icone" accept="image/*">
     <button>Criar</button>
     <img class="decoracao-form" src="{{ url_for('static', filename='coracao.png') }}" alt="">
   </form>
 
  {% for c in contadores %} 
     <div class="card" style="--cor: {{ c.cor }}">
-      <h2>{{ c.emoji or "💖" }} {{ c.nome }}</h2>
+     <div class="cabecalho">
+         {% if c.icone %}
+         <img class="icone" src="{{ url_for('static', filename='uploads/' ~ c.icone) }}" alt="">
+         {% endif %}
+         <h2>{% if not c.icone %}{{ c.emoji or "💖" }} {% endif %}{{ c.nome }}</h2>
+     </div>
       <p>{{ c.dias }} dias</p>
       {% if c.proximo_marco %}
   <p class="proximo">
