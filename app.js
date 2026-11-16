@@ -231,3 +231,7 @@ function iniciarEditar() {
 const pagina = document.body.dataset.pagina;
 if (pagina === "index") iniciarIndex();
 if (pagina === "editar") iniciarEditar();
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js");
+}
