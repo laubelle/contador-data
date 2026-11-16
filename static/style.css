@@ -1,0 +1,5 @@
+
+
+.card { border-left: 6px solid var(--cor); padding: 8px; margin: 12px 0; }
+.barra { background: #eee; border-radius: 8px; height: 10px; overflow: hidden; }
+.barra-preenchida { background: var(--cor); height: 100%; }

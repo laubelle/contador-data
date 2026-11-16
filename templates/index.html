@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <title>Contador</title>
+</head>
+<body>
+  <h1>Meus contadores</h1>
+
+  <form action="/novo" method="post">
+    <input type="text" name="nome" placeholder="Nome do contador" required>
+    <input type="date" name="inicio" required>
+    <input type="color" name="cor" value="#f4a6b7">
+    <input type="text" name="emoji" placeholder="💖" maxlength="2">
+    <button>Criar</button>
+  </form>
+
+ {% for c in contadores %} 
+    <div class="card" style="--cor: {{ c.cor }}">
+      <h2>{{ c.emoji or "💖" }} {{ c.nome }}</h2>
+      <p>{{ c.dias }} dias</p>
+      {% if c.proximo_marco %}
+  <p class="proximo">
+    Próximo marco: <strong>{{ c.proximo_marco }} dias</strong>
+    <span class="faltam">(faltam {{ c.faltam }})</span>
+  </p>
+
+
+  <div class="barra">
+    <div class="barra-preenchida" style="width: {{ c.progresso }}%"></div>
+  </div>
+  
+
+  <h3 class="titulo-lista">Próximos</h3>
+  <ul class="lista-marcos">
+    {% for m in c.proximos %}
+      <li>{{ m.dias }} dias: {{ m.data.strftime("%d/%m/%Y") }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+{% if c.ultimos %}
+  <h3 class="titulo-lista">Já conquistados</h3>
+  <ul class="lista-marcos conquistados">
+    {% for m in c.ultimos %}
+      <li>✓ {{ m.dias }} dias: {{ m.data.strftime("%d/%m/%Y") }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+      <a href="/editar/{{ c.id }}">Editar</a>
+      <form action="/excluir/{{ c.id }}" method="post">
+        <button>Excluir</button>
+      </form>
+    </div>
+  {% endfor %}
+</body>
+</html>
