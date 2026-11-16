@@ -7,8 +7,8 @@
   <title>Editar contador</title>
 </head>
 <body>
+  <a class="voltar" href="/"><span class="seta">←</span> Voltar</a>
   <h1>Editar contador</h1>
-
   <form method="post">
     <input type="text" name="nome" value="{{ c.nome }}" required>
     <input type="date" name="inicio" value="{{ c.inicio }}" required>
@@ -17,6 +17,5 @@
     <button>Salvar</button>
   </form>
 
-  <a href="/">Voltar</a>
 </body>
 </html>

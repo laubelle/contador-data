@@ -70,7 +70,7 @@ def novo():
         "id": uuid.uuid4().hex[:8],
         "nome": request.form["nome"],
         "inicio": request.form["inicio"],
-        "cor": request.form.get("cor", "#f4a6b7"),
+        "cor": request.form.get("cor", "#d3968c"),
         "emoji": request.form.get("emoji", "💖"),
     })
     salvar(contadores)

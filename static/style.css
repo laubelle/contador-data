@@ -1,5 +1,190 @@
+:root {
+  --verde: #999a57;
+  --verde-claro: #d6d7a7;
+  --verde-escuro: #5e5c2d;
+  --creme: #fff2d3;
+  --vinho: #7a2f3d;
+  --azul: #7a8ea1;
+  --mostarda: #fc9c51;
+  --rosa: #d3968c;
+  --coral: #72243a;
+}
+
+* { box-sizing: border-box; }
+
+html { background: var(--coral); }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  color: var(--coral);
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+/* Título */
+h1 {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  text-align: center;
+  color: var(--creme);
+  background: var(--azul);
+  padding: 28px 16px;
+  margin: 0 0 40px;
+  border-radius: 28px 28px 0 0;
+  position: relative;
+}
+h1::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 12px;
+  background: radial-gradient(circle at 12px 0, var(--azul) 12px, transparent 12.5px) repeat-x;
+  background-size: 24px 12px;
+}
+
+/* Formulário de criação */
+body > form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  background: var(--creme);
+  padding: 16px;
+  border-radius: 24px;
+  margin-bottom: 24px;
+}
+
+input[type="text"],
+input[type="date"] {
+  flex: 1 1 140px;
+  font: inherit;
+  padding: 10px 14px;
+  border: 2px solid var(--rosa);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--vinho);
+}
+input[name="emoji"] { flex: 0 0 70px; text-align: center; }
+input:focus { outline: none; border-color: var(--vinho); }
+
+input[type="color"] {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+}
+input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+input[type="color"]::-webkit-color-swatch { border: none; border-radius: 50%; }
+
+button {
+  font: inherit;
+  font-weight: 800;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 999px;
+  background: var(--rosa);
+  color: var(--creme);
+  cursor: pointer;
+}
+button:hover { filter: brightness(1.05); }
+
+/* Cards */
+.card {
+  background: var(--creme);
+  border-radius: 28px;
+  padding: 20px 22px;
+  margin: 20px 0;
+  box-shadow: 0 6px 0 rgba(122, 47, 61, 0.15);
+}
+.card h2 {
+  display: inline-block;
+  font-family: 'Fraunces', serif;
+  font-size: 1.3rem;
+  background: var(--cor);
+  padding: 6px 16px;
+  border-radius: 999px;
+  margin: 0 0 8px;
+}
+.card h2 + p {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 8px 0;
+}
+.faltam { opacity: 0.7; }
+
+/* Barra de progresso */
+.barra { background: #fffef3; border-radius: 8px; height: 12px; overflow: hidden; margin: 12px 0; }
+.barra-preenchida { background: var(--cor); height: 100%; border-radius: 8px; }
 
 
-.card { border-left: 6px solid var(--cor); padding: 8px; margin: 12px 0; }
-.barra { background: #eee; border-radius: 8px; height: 10px; overflow: hidden; }
-.barra-preenchida { background: var(--cor); height: 100%; }
+.titulo-lista {
+  font-family: 'Fraunces', serif;
+  font-size: 1rem;
+  margin: 18px 0 8px;
+}
+.lista-marcos {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.lista-marcos li {
+  background: #fff;
+  border-radius: 14px;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+}
+.lista-marcos.conquistados li { background: var(--verde-claro); }
+
+/* Ações do card */
+.card a,
+.card form {
+  display: inline-block;
+  margin: 14px 8px 0 0;
+}
+.card a {
+  padding: 8px 18px;
+  border: 2px solid var(--azul);
+  border-radius: 999px;
+  color: var(--azul);
+  font-weight: 800;
+  text-decoration: none;
+}
+.card form button {
+  background: transparent;
+  border: 2px solid var(--coral);
+  color: var(--coral);
+  padding: 8px 18px;
+}
+
+.voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  background: var(--creme);
+  color: var(--vinho);
+  font-weight: 800;
+  text-decoration: none;
+  border-radius: 999px;
+  box-shadow: 0 4px 0 rgba(122, 47, 61, 0.15);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.voltar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 rgba(122, 47, 61, 0.15);
+}
+.voltar:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 rgba(122, 47, 61, 0.15);
+}
+.voltar .seta { transition: transform 0.15s; }
+.voltar:hover .seta { transform: translateX(-4px); }
