@@ -116,6 +116,7 @@ button:hover { filter: brightness(1.05); }
   margin-right: -36px; 
 }
 .card {
+  position: relative;
   background: var(--creme);
   border-radius: 28px;
   padding: 20px 22px;
@@ -176,6 +177,30 @@ input[type="file"] { flex: 1 1 100%; font: inherit; font-size: 0.85rem; }
   font-size: 0.9rem;
 }
 .lista-marcos.conquistados li { background: var(--verde-claro); }
+
+@keyframes selo-entrada {
+  0%   { transform: scale(0) rotate(-40deg); opacity: 0; }
+  60%  { transform: scale(1.25) rotate(20deg); opacity: 1; }
+  80%  { transform: scale(0.95) rotate(8deg); }
+  100% { transform: scale(1) rotate(12deg); }
+}
+
+.selo {
+  position: absolute;
+  top: -12px;
+  right: 16px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  font-size: 1.5rem;
+  background: var(--mostarda);
+  border: 3px solid var(--creme);
+  border-radius: 50%;
+  box-shadow: 0 3px 0 rgba(122, 47, 61, 0.2);
+  transform: rotate(12deg);
+  animation: selo-entrada 0.7s ease-out 0.3s both;
+}
 
 /* Ações do card */
 .card a,

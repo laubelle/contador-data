@@ -35,6 +35,8 @@ def gerar_marcos(inicio, limite_anos=20):
 
     return [{"dias": d, "data": marcos[d]} for d in sorted(marcos)]
 
+
+
 def carregar():
     if ARQUIVO.exists():
         return json.loads(ARQUIVO.read_text(encoding="utf-8"))
@@ -52,7 +54,7 @@ def calcular(c):
     todos = gerar_marcos(inicio)
     passados = [m for m in todos if m["dias"] <= dias]
     futuros = [m for m in todos if m["dias"] > dias]
-
+    hoje_e_marco = dias > 0 and any(m["dias"] == dias for m in todos)
     proximo = futuros[0]["dias"] if futuros else None
     anterior = passados[-1]["dias"] if passados else 0
 
@@ -71,6 +73,7 @@ def calcular(c):
         "proximos": futuros[:3],
         "ultimos": passados[-3:][::-1],  # do mais recente pro mais antigo
         "marcos": todos,                 # lista completa
+        "marco_hoje": hoje_e_marco,
     }
 
 @app.route("/")
@@ -112,7 +115,13 @@ def editar(id):
 
 @app.route("/excluir/<id>", methods=["POST"])
 def excluir(id):
-    salvar([c for c in carregar() if c["id"] != id])
+    contadores = carregar()
+    alvo = next((c for c in contadores if c["id"] == id), None)
+    if alvo and alvo.get("icone"):
+        caminho = os.path.join(PASTA_UPLOADS, alvo["icone"])
+        if os.path.exists(caminho):
+            os.remove(caminho)
+    salvar([c for c in contadores if c["id"] != id])
     return redirect("/")
 
 if __name__ == "__main__":

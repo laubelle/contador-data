@@ -22,6 +22,7 @@
 
  {% for c in contadores %} 
     <div class="card" style="--cor: {{ c.cor }}">
+        {% if c.marco_hoje %}<img class="selo" src="{{ url_for('static', filename='selo.png') }}" alt="Data especial">{% endif %}
      <div class="cabecalho">
          {% if c.icone %}
          <img class="icone" src="{{ url_for('static', filename='uploads/' ~ c.icone) }}" alt="">
